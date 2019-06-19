@@ -1,0 +1,4 @@
+<h1>Look at all This articles</h1>
+<%articleData.forEach(function(article, index){%>
+    <p><a href="/articles/<%= index%>"><%= article.title%></a></p>
+<%});%>
