@@ -14,7 +14,7 @@ app.set('view engine', 'ejs');
 app.use(layouts);
 
 app.get('/', function(req, res){
-    res.send('we should add some nice landing page stuff here');
+    res.redirect('articles');
 });
 
 app.get("/articles", function(req, res){
@@ -27,11 +27,18 @@ app.get('/articles/new', function(req, res){
     res.render('articles/new');
     });
 
+app.get('/articles/:id/edit', function(req, res){
+    var articles = fs.readFileSync('./articles.json');
+    var articleData = JSON.parse(articles);
+    var id = parseInt(req.params.id);
+    res.render('articles/edit', {article: articleData[id], id});
+});
+
 app.get('/articles/:id', function(req, res){
     var articles = fs.readFileSync('./articles.json');
     var articleData = JSON.parse(articles);
     var id = parseInt(req.params.id);
-    res.render('articles/show', {article: articleData[id]});
+    res.render('articles/show', {article: articleData[id], id});
 })
 
 app.post('/articles', function(req, res){
@@ -41,8 +48,8 @@ app.post('/articles', function(req, res){
     let articleData = JSON.parse(articles);
     //push our new data into the array
     let newArticle = {
-        title: req.body.title,
-        body: req.body.body
+        title: req.body.articleTitle,
+        body: req.body.articleBody
     }
     articleData.push(newArticle);
     //write the array back to the file
@@ -66,10 +73,10 @@ app.delete('/articles/:id', function(req, res){
 
 app.put('/articles/:id', function(req, res){
     let articles = fs.readFileSync('./articles.json');
-    let dinoData = JSON.parse(articles);
+    let articleData = JSON.parse(articles);
     var id = parseInt(req.params.id);
     articleData[id].title = req.body.articleTitle;
-    articleData[id].type = req.body.articleBody;
+    articleData[id].body = req.body.articleBody;
     fs.writeFileSync('./articles.json', JSON.stringify(articleData));
     res.redirect("/articles/"+ id);
 })

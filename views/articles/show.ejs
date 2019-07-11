@@ -1,3 +1,8 @@
-<h1>Loo at all </h1>
-<h2><%= article.title %></h2>
-<p><%= article.body %></p>
+
+<h2><%= article.title%></h2>
+<a href="/articles">Back To Home</a>
+<p> <%= article.body%></p>
+<a href="/articles/<%= id%>/edit">Edit This blog</a>
+<form method="POST" action="/articles/<%= id%>/?_method=DELETE">
+    <input type="submit" value="DELETE">
+</form>

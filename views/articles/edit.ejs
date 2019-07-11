@@ -1,8 +1,8 @@
-<h2>Update your Dino info</h2>
+<h2>Update your article info</h2>
 <form method="POST" action="/articles/<%= id%>?_method=PUT">
     <label for="articleTitle">Type</label>
-    <input type="text" name="articleTitle" value="<%= atricles.title %>">
+    <input type="text" name="articleTitle" value="<%= article.title %>">
     <label for="articleBody">Name</label>
-    <input type="text" name="articleBody" value="<%= articles.body %>">
+    <input type="text" name="articleBody" value="<%= article.body %>">
     <input type="submit" value="Update My my article">
 </form>
